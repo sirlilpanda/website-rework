@@ -1,0 +1,41 @@
+{
+  "name": "tested-telescope",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "wrangler types && astro dev",
+    "build": "wrangler types && astro build",
+    "preview": "wrangler types && astro preview",
+    "astro": "astro",
+    "generate-types": "wrangler types",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply d1-guest-book-prod-db --local",
+    "db:migrate:prod": "wrangler d1 migrations apply d1-guest-book-prod-db --remote",
+    "db:migrate:preview": "wrangler d1 migrations apply --env preview d1-guest-book-preview-db --remote",
+    "db:studio:local": "LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio",
+    "db:studio:preview": "source .drizzle.env && DB_ID='940038b3-c666-4b34-b2a7-366f3a9509a4' drizzle-kit studio",
+    "db:studio:prod": "source .drizzle.env && DB_ID='48bf8d26-cdae-4887-a2c5-cf539788b6a5' drizzle-kit studio"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.1.1",
+    "@astrojs/mdx": "^5.0.0",
+    "@astrojs/rss": "^4.0.17",
+    "@astrojs/sitemap": "^3.7.1",
+    "astro": "^6.0.4",
+    "drizzle-orm": "^0.45.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "remark-toc": "^9.0.0",
+    "sharp": "^0.34.3",
+    "wrangler": "^4.73.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "better-sqlite3": "^12.8.0",
+    "cross-env": "^10.1.0",
+    "drizzle-kit": "^0.31.9"
+  }
+}

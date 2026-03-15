@@ -1,0 +1,87 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+import { desc } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/d1";
+import { GuestLog } from "../schema";
+import { env } from "cloudflare:workers";
+
+export const prerender = false
+
+const db = drizzle(env.DB);
+
+if (Astro.request.method === 'POST') {
+    // Parse form data
+    const formData = await Astro.request.formData();
+    console.log(formData);
+    const name = formData.get('name');
+    const message = formData.get('message');
+  
+    if (
+  		typeof name === 'string' && 
+  		typeof message === 'string' &&
+  		name !== "" &&
+  		message !== "" 
+  	) {
+
+		if (message.length >= 255) {
+			return;
+		}
+
+      	await db.insert(GuestLog).values([{ 
+			name : name, 
+			message	: message,
+			date_viewed : new Date(),
+		}]);
+    }
+}
+
+
+const guest_logs = await db
+	.select()
+	.from(GuestLog)
+	.orderBy(desc(GuestLog.date));
+
+guest_logs.forEach(log => {
+	console.log(log)
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<Icon />
+			<h1>guest book</h1>
+			<ul>
+			{
+				guest_logs.map((log) => (
+					<li>
+						<p>[{log.date.toDateString()}] {log.name} : {log.message}</p>
+					</li>
+				))
+			}
+			</ul>
+			<h1>sign the guest book</h1>
+			<form method="POST" style="display: grid">
+				<label for="name">Name</label>
+				<input id="name" name="name" />
+
+				<label for="message">message</label>
+				<textarea id="message" name="message"></textarea>
+
+				<button type="submit">Submit</button>
+			</form>
+		</main>
+		<Footer />
+	</body>
+</html>
