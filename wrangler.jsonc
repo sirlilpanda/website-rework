@@ -17,7 +17,8 @@
 	"d1_databases": [
     	{
     	  	"binding": "DB",
-    	  	"database_name": "d1-guest-book-prod-db"
+    	  	"database_name": "d1-guest-book-prod-db",
+			"database_id": "48bf8d26-cdae-4887-a2c5-cf539788b6a5"
     	}
   	],
 	"env" : {
@@ -26,7 +27,8 @@
 				"d1_databases": [
 					{
 						"binding": "DB",
-						"database_name": "d1-guest-book-preview-db"
+						"database_name": "d1-guest-book-preview-db",
+						"database_id": "940038b3-c666-4b34-b2a7-366f3a9509a4"
 					}
 				],		
 		}
