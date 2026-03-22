@@ -24,7 +24,7 @@ export default defineConfig({
       },
     },
     remarkPlugins: [
-      remarkMath,
+      // [remarkMath, {}],
       [remarkToc, { heading: 'toc', maxDepth: 3 } ],
     ],
     rehypePlugins : [
