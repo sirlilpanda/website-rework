@@ -6,12 +6,9 @@ heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
 <!-- # TOC -->
-$$
-
+```math
 f(x) = ym + c
-
-$$
-
+```
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 
 ## Headings
