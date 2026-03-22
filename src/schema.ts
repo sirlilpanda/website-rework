@@ -5,6 +5,7 @@ export const GuestLog = sqliteTable("GuestLog", {
 		autoIncrement: true,
 	}),
 	name: text("name").notNull(),
+	website_link: text("website_link"),
 	message: text("message"),
 	date: integer("date", {mode: "timestamp",})
             .notNull()
