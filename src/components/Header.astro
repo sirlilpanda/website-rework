@@ -1,88 +1,562 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import Icon from './Icon.astro'
+import HambugerIcon from './HamburgerIcon.astro'
 ---
 
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+
+<header id="header-bar">
+	<div class="background">
+		<div class="window-frame-wrapper", id="window-frame-wrapper">
+			<div class="frame-top", id="frame-top"/>
+			<div class="frame-bottom", id="frame-bottom"/>
 		</div>
-		<div class="social-links">
-			<a href="https://m.webtoo.ls/@astro" target="_blank">
-				<span class="sr-only">Follow Astro on Mastodon</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"
-					></path></svg
-				>
+		<div class="sky", id="sky"/>
+	</div>
+	<div class="header-bar-wrapper">
+		<div class="">
+			<a href="/" class="header-icon">
+				<Icon height={72} width={72} />
 			</a>
-			<a href="https://twitter.com/astrodotbuild" target="_blank">
-				<span class="sr-only">Follow Astro on Twitter</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
-					></path></svg
-				>
-			</a>
-			<a href="https://github.com/withastro/astro" target="_blank">
-				<span class="sr-only">Go to Astro's GitHub repo</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
-			</a>
+			<div class="theme-toggle" id="theme-toggle" onclick="handle_theme_toggle()">
+				<div class="clock-face">
+					<div class="clock-display" id="clock-display">12 : 23</div>
+				</div>
+			</div>
 		</div>
-	</nav>
+		<div class="hamburger-menu-button" onclick="handle_nav()" id="hamburger-menu-button">
+			<HambugerIcon height={52} width={52} />
+		</div>
+
+		<nav id="nav">
+			<HeaderLink href="/">Home()</HeaderLink>
+			<HeaderLink href="/articles">Articles()</HeaderLink>
+			<HeaderLink href="/guestBook">guestBook()</HeaderLink>
+			<HeaderLink href="/pictures">pictures()</HeaderLink>
+		</nav>
+	</div>
 </header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background-color: rgba(rgb(var(--background)), 0.2);
-		/* background: var(--background-colour); */
-		backdrop-filter: blur(5px);
-		box-shadow: var(--box-shadow);
-		position: sticky;
+<ul>
+	<li>
+		<a href="https://onio.neocities.org" title="Visit Onio Café">
+			<img src="https://onio.neocities.org/thebutton.gif" alt="Come Chat With Us!" width="88" height="31">
+		</a>
+	</li>
+</ul>
+
+<script is:inline>
+	/* Hamburger button management */
+    let opened = false;
+
+    /* Set the width of the side navigation to 250px */
+    function handle_nav() {
+        if (opened === true) {
+            document.getElementById("nav").classList.remove("active");
+            console.log("closed");
+            opened = false;
+        } else {
+            document.getElementById("nav").classList.add("active");
+            document.getElementById("hamburger-menu-button").focus();
+            console.log("opened");
+            opened = true;
+        }
+    }
+
+	const slat_spaceing = 180;
+	let number_of_slats = 0;
+	function position_window_frame() {
+		const header = document.getElementById("header-bar");
+		const window_frame = document.getElementById("window-frame-wrapper");
+		const header_bounding_box = header.getBoundingClientRect();
+		console.log(header_bounding_box)
+		const frame_bottom = document.getElementById("frame-bottom");
+		const frame_bottom_bounding_box = frame_bottom.getBoundingClientRect();;
+		const em = parseFloat(getComputedStyle(header).fontSize);
+ 
+		number_of_slats = Math.ceil(header_bounding_box.width / slat_spaceing);
+		console.log(`number of slats ${number_of_slats}`)
+
+		for (let i = 0; i < number_of_slats; i++) {
+			const slat = document.createElement('div');
+			place_window_slats(slat, i, header_bounding_box, em)
+			window_frame.appendChild(slat)
+		}
+
+		frame_bottom.style.top = `${header_bounding_box.bottom - frame_bottom_bounding_box.height}px`;
 	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
+	position_window_frame()
+	function place_window_slats(slat, i, bound_box, em) {
+		// console.log(`i ${i}`)
+		// console.log(slat)
+		slat.className = "slat"
+		slat.style.position = "absolute";
+		slat.style.height = `${bound_box.height}px`;
+		slat.style.width = `${em*0.5}px`; 
+		slat.style.backgroundColor = "var(--frame-colour)"
+		slat.style.zIndex = "1"
+		slat.style.left = `${slat_spaceing * i}px`
 	}
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
+	function remove_slats() {
+		const window_frame = document.getElementById("window-frame-wrapper");
+		
+		for (let child of window_frame.children) {
+			if (child.className == "slat") {
+				child.remove()
+			}
+		}
 	}
-	nav {
+
+	const number_of_stars = 300;
+	function fill_stars() {
+
+		// get the size of the header
+		const header = document.getElementById("header-bar");
+
+		// header.style.background = "red";
+		const header_bounding_box = header.getBoundingClientRect();
+		console.log(header_bounding_box.width)
+		console.log(header_bounding_box.width/2)
+		let stars = document.getElementById("sky")
+		stars.setAttribute("width", header_bounding_box.width);
+		stars.setAttribute("height", header_bounding_box.height);
+	
+		for (let i = 0; i < number_of_stars; ++i) {
+			const star = document.createElement('div');
+			place_star(star, header_bounding_box)
+			console.log(star.style.top)
+			stars.appendChild(star)
+		}
+	}
+	fill_stars()
+
+	function place_star(star, header_bounding_box) {
+		star.classList.add('star');
+		star.style.background = "white"
+		
+		const star_size = Math.random() * 2 + 1;
+		star.className = 'star';
+		star.style.position = "absolute";
+		star.style.width = `${star_size}px`
+		star.style.height = `${star_size}px`
+		// multiply by 3
+		const center_offset = Math.random() * header_bounding_box.width/2;
+		star.style.left = `${header_bounding_box.width/2}px`
+		star.style.top = `${header_bounding_box.height}px`
+		star.style.boxShadow = "0px 0px 14px white"
+		star.style.borderRadius = "100%"
+		star.style.transition = "250ms"
+		star.style.animationDuration = `${Math.random() * 20 + 10}s`;
+
+		const ani_duration = (Math.random() * 30000 + 30000);
+		const ani_start_time = ani_duration * Math.random(); 
+
+		const orbit_keyframes = new KeyframeEffect(
+			star,
+			[
+				{transform : `rotate(0deg) translateX(${center_offset}px) rotate(0deg)`},
+				{transform : `rotate(-180deg) translateX(${center_offset}px) rotate(0deg)`}
+			],
+			{
+				duration : ani_duration, // in ms
+				iterations : "Infinity",
+				iterationStart : ani_start_time
+			}
+		)
+
+		const twinkle_keyframes = new KeyframeEffect(
+			star,
+			[
+				{opacity: 0.8},
+				{opacity: 0.3},
+				{opacity: 0.8}
+			],
+			{
+				duration : ani_duration, // in ms
+				iterations : "Infinity",
+				iterationStart : ani_start_time
+			}
+		)
+
+		const orbit_animation = new Animation(orbit_keyframes, document.timeline);
+		const twinkle_animation = new Animation(twinkle_keyframes, document.timeline);
+		orbit_animation.play()
+		twinkle_animation.play()
+	}
+
+	function hide_stars() {
+		let stars = document.getElementById("sky")
+		
+		for (let child of stars.children) {
+			if (child.className == "star") {
+				child.style.display = "none";
+			}
+		}
+	}
+
+	function show_stars() {
+		let stars = document.getElementById("sky")
+		
+		for (let child of stars.children) {
+			if (child.className == "star") {
+				child.style.display = "unset";
+			}
+		}
+	}
+
+
+	function replace_stars() {
+	let stars = document.getElementById("sky")
+		const header = document.getElementById("header-bar");
+		const header_bounding_box = header.getBoundingClientRect();
+
+		for (let child of stars.children) {
+			if (child.className == "star") {
+				place_star(child, header_bounding_box)
+			}
+		}
+	}
+
+	function place_cloud(cloud, bound_box) {
+		cloud.className = "cloud"
+		
+		// cloud.style.left = `${Math.random() * bound_box.width}px`
+		cloud.style.top = `${Math.random() * bound_box.height}px`
+		cloud.style.position = "absolute";
+
+		// random circles around the top half of the cloud
+		const number_of_parts = Math.random() * 8 + 3;
+		for (let i = 0; i < number_of_parts; i++) {
+			const fluff = document.createElement('div')
+			fluff.style.backgroundColor = "white"
+			fluff.style.position = "absolute";
+
+			fluff.style.borderRadius = "100%"
+			const fluff_size = Math.random() * 75 + 20
+			
+			fluff.style.width = `${fluff_size}px`
+			fluff.style.height = `${fluff_size}px`
+
+			const angle = Math.random() * 180
+			const rad = Math.random() * 20 + 3
+			fluff.style.top = `${rad*Math.sin(angle)}px`
+			fluff.style.left = `${rad*Math.cos(angle)}px`
+			fluff.style.boxShadow = "0px 0px 5px white"
+
+			const ani_duration = (Math.random() * 15000 + 5000);
+			const ani_start_time = ani_duration * Math.random();
+
+			const wiggle_keyframes = new KeyframeEffect(
+				fluff,
+				[
+					{transform : `translateX(0px) translateY(0px)`},
+					{transform : `translateX(${Math.random() * 5 + 3}px) translateY(${Math.random() * 5 + 2}px)`},
+					{transform : `translateX(0px) translateY(0px)`}
+				],
+				{
+					duration : ani_duration, // in ms
+					iterations : "Infinity",
+					iterationStart : ani_start_time
+				}
+			)
+
+			const wiggle_animation = new Animation(wiggle_keyframes, document.timeline);
+			wiggle_animation.play()
+
+			cloud.appendChild(fluff);
+		}
+		const travel_ani_duration = (Math.random() * 300000 + 100000);
+		const travel_ani_start_time = travel_ani_duration * Math.random();
+		const travel_keyframes = new KeyframeEffect(
+			cloud,
+			[
+				{transform : `translateX(-100px) translateY(-100px)`},
+				{transform : `translateX(${bound_box.width}px) translateY(${Math.random() * bound_box.height}px)`}
+			],
+			{
+				duration : travel_ani_duration, // in ms
+				iterations : "Infinity",
+				iterationStart : travel_ani_start_time
+			}
+		)
+
+			const travel_animation = new Animation(travel_keyframes, document.timeline);
+			travel_animation.play()
+	}
+
+	function hide_cloud() {
+		let sky = document.getElementById("sky")
+	
+		for (let child of sky.children) {
+			if (child.className == "cloud") {
+				child.style.display = "none";
+			}
+		}
+	}
+	function show_cloud() {
+		let sky = document.getElementById("sky")
+		
+		for (let child of sky.children) {
+			if (child.className == "cloud") {
+				child.style.display = "unset";
+			}
+		}
+	}
+
+	const number_of_clouds = 20;
+	function fill_sky() {
+		// get the size of the header
+		const header = document.getElementById("header-bar");
+		const header_bounding_box = header.getBoundingClientRect();
+		console.log(header_bounding_box)
+		let sky = document.getElementById("sky")
+		sky.setAttribute("width", header_bounding_box.width);
+		sky.setAttribute("height", header_bounding_box.height);
+
+		for (let i = 0; i < number_of_clouds; ++i) {
+			const cloud = document.createElement('div');
+			place_cloud(cloud, header_bounding_box)
+			sky.appendChild(cloud)
+		}
+	}
+	fill_sky()
+	
+	function light_mode() {
+		hide_stars()
+		show_cloud()
+	}
+
+	function dark_mode() {
+		show_stars()
+		hide_cloud()
+	}
+
+
+	let theme = document.documentElement.getAttribute("data-theme");
+
+	function handle_theme_toggle() {
+		console.log("clicked")
+		if (theme === "dark") {
+			theme = "light"
+			light_mode()
+			document.documentElement.setAttribute("data-theme", "light");
+			sessionStorage.setItem("theme", "light");
+			console.log("light mode")
+			return;
+		}
+		if (theme === "light") {
+			theme = "dark"
+			dark_mode()
+			document.documentElement.setAttribute("data-theme", "dark");
+			sessionStorage.setItem("theme", "dark");
+			console.log("dark mode")
+			return;
+		}
+	}
+	console.log(`theme : ${theme}`)
+	if (theme === "dark") {
+		dark_mode()
+		theme = "dark";
+	} else {
+		light_mode()
+		theme = "light";
+	}
+
+
+	addEventListener("resize", (event) => {
+		remove_slats()
+		position_window_frame()
+
+		replace_stars()
+	})
+
+	function update_clock() {
+		let display = document.getElementById("clock-display");
+		let current_time = new Date()
+		display.innerHTML = `${current_time.getHours()} : ${current_time.getMinutes().toString().padStart(2, "0")}`
+	}
+	update_clock()
+
+	window.setInterval(update_clock, 1000)
+</script>
+
+<style>
+
+	:root {
+		--header-height: 4em;
+	}
+
+	.theme-toggle {
+		position: absolute;
+		transform: translateY(-0.5em) translateX(0.5em);
+		z-index: 99;
+	}
+
+	.theme-toggle:hover {
+		cursor: pointer;
+
+	}
+
+	.clock-face {
 		display: flex;
+		flex-direction: row;;
+		padding: 0.2em;
+		border-radius: 20% 20% 0% 0%;
+		background-color: #202020;
+	}
+
+	.clock-display {
+		border-radius: 20%;
+		background-color: #101010;
+		padding-left: 0.1em;
+		padding-right: 0.1em;
+		padding-top: 0.1em;
+		color: red;
+		text-shadow: 0px 0px 5px red;
+	}
+
+	.slat {
+		background-color: var(--frame-colour);
+	}
+	
+	.frame-top {
+		position: absolute;
+		height: 0.5em;
+		width: 100%;
+		background-color: var(--frame-colour);
+		z-index: 4;
+	}
+	
+	.frame-bottom {
+		position: absolute;
+		height: 0.5em;
+		width: 100%;
+		background-color: var(--frame-colour);
+		z-index: 1;
+	}
+
+	.sky {
+		position: absolute;
+		width: 100vw;
+		min-height: 10em;
+		overflow: hidden;
+	}
+
+	.background {
+		/* position: absolute; */
+		/* clip-path: rect(0% 100% 100% 0%); */
+		width: 100vw;
+		min-height: 10em;
+		transition: background 250ms;
+		background: var(--sky-colour);
+	}
+
+	header {
+		min-height: 10em;
+		width: 100vw;
+		/* background: linear-gradient(360deg,rgba(8, 0, 26, 1) 0%, rgba(7, 0, 20, 1) 37%, rgba(0, 0, 0, 1) 100%); */
+	}
+
+	.header-bar-wrapper {
+		z-index: 99;
+		min-height: 10em;
+		position: absolute;
+		transform: translateY(-10em);
+		width: 100vw;
+		display: flex;
+		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+		/* justify-content: space-evenly; */
+		height: var(--header-height);
+		margin: 0;
+		box-shadow: 0 2px 8px rgba(var(--text-color), 5%);
+		transition: 100ms;
 	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
+
+
+	nav, nav.active {
+		width: auto;
 	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
+	nav {
+		padding-right: 2em;
 	}
-	.social-links,
-	.social-links a {
+
+	.header-icon {
+		margin-left: 1em;
+		z-index: 4;
+		transform: rotateZ(-4deg);
+		background-color: rgba(250, 235, 215, 0.2);
 		display: flex;
+		align-items: center;
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;
+		transition: 150ms;
 	}
+
+	.header-icon:hover {
+		transform: translateY(-0.2em) rotateZ(-2deg);
+		box-shadow: 19px 29px 70px -19px rgba(80,80,80,0.75);
+	}
+
+	.hamburger-menu-button {
+		display: none;
+	}
+
+	.Icon {
+		background-color: antiquewhite;
+	}
+
 	@media (max-width: 720px) {
+
+
+		.theme-toggle {
+			position: absolute;
+			transform: translateY(-0.72em) translateX(0.5em);
+			z-index: 99;
+		}
+		/* Mobile styles */
+		
+
+		.hamburger-menu-button {
+			float: right;
+			max-height: 64px;
+			fill: var(--text-color);
+			color: var(--text-color);
+			display: flex;
+			align-items: center;
+			transition: 250ms;
+			margin-top: 1.5em;
+			margin-bottom: 1.5em;
+			z-index: 89;
+			display: unset;
+		}
+
+		nav {
+			height: 100%;
+			width: 0; 
+			top: 0;
+			right: 0;
+			position: fixed;
+			max-width: 100%;
+			z-index: 88; 
+			background-color: rgb(from var(--header-color) r g b / 0.4);
+        	backdrop-filter: blur(16px);
+			overflow-x: hidden; 
+			padding-top: var(--header-height); 
+			padding-bottom: 100%;
+			padding-right: 0em;
+			transition: 250ms; 
+			transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+
+		nav.active {
+			width: 250px;
+		}
+
 		.social-links {
 			display: none;
 		}
-	}
+	}	
 </style>

@@ -1,0 +1,99 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+import { drizzle } from "drizzle-orm/d1";
+import { GuestLog } from "../../schema";
+import { env } from "cloudflare:workers";
+
+export const prerender = false
+
+const db = drizzle(env.DB);
+
+if (Astro.request.method === 'POST') {
+    // Parse form data
+    const formData = await Astro.request.formData();
+    console.log(formData);
+    const name = formData.get('name');
+    const message = formData.get('message');
+    const website_link = formData.get('website_link');
+  
+    if (
+  		typeof name === 'string' && 
+  		typeof website_link === 'string' && 
+  		typeof message === 'string' &&
+  		name !== "" &&
+  		message !== "" 
+  	) {
+
+		if (message.length >= 255) {
+			return;
+		}
+
+      	await db.insert(GuestLog).values([{ 
+			name : name, 
+			message	: message,
+			website_link : website_link,
+			date_viewed : new Date(),
+		}]);
+    }
+}
+
+let guest_logs : {id: number; name: string; message: string | null; date: Date;}[] = [];
+try {
+guest_logs = await db
+	.select()
+	.from(GuestLog)
+	.orderBy(GuestLog.date);
+} catch (err) {
+	console.log(err);
+}
+
+guest_logs.forEach(log => {
+	console.log(log)
+});
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="guest book" description="a guest book of everyone who have visited my site" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+			<h1>sign the <span style="background-color: blueviolet;">guest</span> book</h1>
+			<form method="POST" style="display: grid">
+				<label for="name">Name</label>
+				<input id="name" name="name" />
+
+				<label for="website_link">Website link(optional)</label>
+				<input id="website_link" name="website_link" />
+
+				<label for="message">message</label>
+				<textarea id="message" name="message"></textarea>
+
+				<button type="submit">Submit</button>
+			</form>
+
+			<h1>guest book</h1>
+			<ul>
+			{
+				guest_logs.map((log) => (
+					<li>
+						<p>[{log.date.toDateString()}] {log.name} 
+							{log.website_link? (<a href={log.website_link}>{log.website_link}</a>) : ""}
+							: {log.message}</p>
+					</li>
+				))
+			}
+			</ul>
+
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

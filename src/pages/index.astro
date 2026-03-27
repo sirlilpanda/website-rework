@@ -1,56 +1,31 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 import SkillCard from '../components/skillCard.astro'
 import { desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
-import { GuestLog } from "../schema";
 import { env } from "cloudflare:workers";
+import { GuestLog } from "../schema";
 
 export const prerender = false
-
 const db = drizzle(env.DB);
-
-if (Astro.request.method === 'POST') {
-    // Parse form data
-    const formData = await Astro.request.formData();
-    console.log(formData);
-    const name = formData.get('name');
-    const message = formData.get('message');
-    const website_link = formData.get('website_link');
-  
-    if (
-  		typeof name === 'string' && 
-  		typeof website_link === 'string' && 
-  		typeof message === 'string' &&
-  		name !== "" &&
-  		message !== "" 
-  	) {
-
-		if (message.length >= 255) {
-			return;
-		}
-
-      	await db.insert(GuestLog).values([{ 
-			name : name, 
-			message	: message,
-			website_link : website_link,
-			date_viewed : new Date(),
-		}]);
-    }
-}
 
 let guest_logs : {id: number; name: string; message: string | null; date: Date;}[] = [];
 try {
 guest_logs = await db
 	.select()
 	.from(GuestLog)
-	.orderBy(GuestLog.date);
+	.orderBy(GuestLog.date)
+	.limit(20);
+
 } catch (err) {
 	console.log(err);
 }
@@ -58,6 +33,15 @@ guest_logs = await db
 guest_logs.forEach(log => {
 	console.log(log)
 });
+
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+
+
+
 ---
 
 <!doctype html>
@@ -68,65 +52,91 @@ guest_logs.forEach(log => {
 	<body>
 		<Header />
 		<main>
-			<div class="IntroHeader"></div>
-			<h1 class="greeting">Hello!!, im sirlilpanda</h1>
-			<Icon />
-
+			<!-- <div class="IntroHeader"></div> -->
+			<div class="greeting-wrapper">
+				<h1 class="greeting">Hello!!, im sirlilpanda</h1>
+				<Icon height={128} width={128}/>
+			</div>
 			
 			<h1 id="about_me">About me</h1>
 			<p1>
-				im an insane computer engineer who has to many hobbies and projects for me to actually work on. 
-				That is just the best way to describe me you think of a hobby ive probably dabbled in it.
+				just a friendly neighborhood technomancer
 			</p1>
+			
+			<p>
+				click the clock in the corner if you want to change to dark mode. <br/>
+				im still not full happy with the look of this website and will contiune to make changes.
+			</p>
 
-			<h1>guest book</h1>
-			<ul>
+			<h3>check out my lastest <a href={`/articles/${posts[0].id}/`}>blog post</a></h3>
+			<div class="preview-post">
+				<a href={`/articles/${posts[0].id}/`}>
+					{posts[0].data.heroImage && (
+						<Image width={720} height={360} src={posts[0].data.heroImage} alt="" />
+					)}
+					<h4 class="title">{posts[0].data.title}</h4>
+					<p class="date">
+						<FormattedDate date={posts[0].data.pubDate} />
+					</p>
+					<p>{posts[0].data.description}</p>
+				</a>
+			</div>
+
+
+			<h3>consider adding to the <a href="/guestBook">guestbook</a></h3>
+			<h5>heres what others had to say already</h5>
+			<ul class="lastest-guestbook-logs">
 			{
 				guest_logs.map((log) => (
 					<li>
-						<p>[{log.date.toDateString()}] {log.name} 
-							{log.website_link? (<a href={log.website_link}>{log.website_link}</a>) : ""}
-							: {log.message}</p>
+						<p class="title">[{log.date.toDateString()}] {log.name} 
+							{log.website_link? (<a href={log.website_link}>{log.website_link}</a>) : ""}:</p>
+						<p class="message">{log.message}</p>
 					</li>
 				))
 			}
 			</ul>
-			<h1>sign the <span style="background-color: blueviolet;">guest</span> book</h1>
-			<form method="POST" style="display: grid">
-				<label for="name">Name</label>
-				<input id="name" name="name" />
 
-				<label for="website_link">Website link(optional)</label>
-				<input id="website_link" name="website_link" />
+			
 
-				<label for="message">message</label>
-				<textarea id="message" name="message"></textarea>
+			<h3>take my button, i will be collecting some soon too!</h3>
 
-				<button type="submit">Submit</button>
-			</form>
-				
+				<textarea class="button-copy">
+&lt;a href="https://sirlilpanda.studio" title="Visit sirlilpandas website"&gt;
+&lt;img 
+	src="https://sirlilpanda.studio/public/panda.gif" 
+	alt="check out a man driven to insanity" 
+	width=88 height=31
+&gt;
+&lt;/a&gt;
+				</textarea>
+
+
 			<a href="https://sirlilpanda.studio" title="Visit sirlilpandas website">
-				<img src="panda_big.gif" alt="check out a man driven to insanity" width={88*4} height={31*4}>
+				<img 
+				src="panda_big.gif" alt="check out a man driven to insanity" width={88*4} height={31*4}>
 			</a>
+			
 
-			<a href="https://onio.neocities.org" title="Visit Onio Café">
-				<img src="https://onio.neocities.org/thebutton.gif" alt="Come Chat With Us!" width="88" height="31">
-			</a>
+
 
 		</main>
 		<Footer />
 	</body>
 </html>
 
-
 <style>
-	.IntroHeader {
-		display: flexbox;
+
+	.button-copy {
+		font-size: 1em;
+		color: var(--text-color);
+		height: 10em;
+		background: var(--background-colour);
+
 	}
 
 
-
- @keyframes gradient {
+ 	@keyframes gradient {
         0% {
             background-position: 0% 90%;
         }
@@ -162,5 +172,58 @@ guest_logs.forEach(log => {
 		animation: gradient 2s linear infinite;
 		font-size: 2.5em;
 	}
+
+	.preview-post {
+		border-radius: 2em;
+		padding-top: 1em;
+		padding-left: 1em;
+		padding-right: 1em;
+		background: var(--background-colour);
+		border-style: solid;
+		border-color: blanchedalmond;
+		box-shadow: var(--box-shadow);
+		margin-bottom: 5em;
+	}
+
+	.Icon {
+		padding-right: 2em;		
+	}
+
+	.greeting-wrapper {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.lastest-guestbook-logs {
+		border-radius: 2em;
+		padding: 1em;
+		background: var(--background-colour);
+		border-style: solid;
+		border-color: blanchedalmond;
+		box-shadow: var(--box-shadow);
+		margin-bottom: 5em;
+	}
+
+	ul > li {
+		margin-top: 1em;
+		border-radius: 1em;
+		padding-left: 1em;
+		padding-right: 1em;
+		border-style: solid;
+		border-color: blanchedalmond;
+		transition: 250ms;
+		background: var(--background-colour);
+	}
+
+	ul > li:hover {
+		transform: translateY(-0.5em);
+		box-shadow: var(--box-shadow);
+	}
+
+	ul > li:nth-of-type(odd) {
+		background: var(--main-background-colour);
+	}
+
 
 </style>

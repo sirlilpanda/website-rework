@@ -1,0 +1,124 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+    skill_level: string;
+}
+
+const { title, description, image, skill_level, } = Astro.props;
+---
+
+
+
+<div class="box">
+    <div class="grid_wrapper"> 
+        <!-- 2,3 -->
+        <img src={image} alt="">
+        <div class="title">{title}</div>
+        <div class="skill_level">{skill_level}</div>
+        <div class="description"><slot /></div>
+    </div>
+</div>
+
+
+
+<style>
+
+    .box > .grid_wrapper {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 0px;
+    }
+
+    .box {
+        margin-top: 2em;
+        background-color: var(--skill-card-colour);
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+        border-radius: 3em;
+        border-width: 1em;
+        border-color: var(--skill-card-colour);
+		transition-duration: 400ms;
+        padding-right: 0.5em;
+    }
+
+    .box:hover {
+        box-shadow: 10px 10px 8px #000000;
+        transform: translate(0, -0.5em);
+    }
+
+    @keyframes exp-bar {
+        0%   {background: linear-gradient(#e66465, #9198e5)}
+        100%   {background: linear-gradient(#9198e5, #e66465)}
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .grid_wrapper img {
+        height: 80%;
+        max-width: 100px;
+        max-height: 100px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0.25em;
+        grid-row: 1 / span 2;
+    }
+
+    .grid_wrapper .description {
+        /* background-color: blue; */
+        width: auto;
+        grid-column: 2 / span 3; 
+    }
+
+    .grid_wrapper .title {
+        color: var(--title-colour);
+        width: 5em;
+    }
+
+    .grid_wrapper .title:after {
+        content: ":";
+        /* width: 5em; */
+    }
+
+
+    .grid_wrapper .skill_level {
+        border-radius: 4em;
+        height: auto;
+        text-align: center;
+        min-width: fit-content;
+        min-height: fit-content;
+        color: #000000;
+        background: linear-gradient(-24deg, #00ff00, #94ff7e, #acff4e, #27ff88);
+        background-size: 400% 400%;
+        grid-column: 3 / span 3; 
+        width: auto;
+        transition: 250ms;
+    }
+
+
+	@media (max-width: 760px) {
+        .grid_wrapper .skill_level {
+            animation: gradient 2s linear infinite reverse;
+        }
+    }
+
+    .box:hover .skill_level {
+        animation: gradient 2s linear infinite reverse;
+    }
+
+</style>    
