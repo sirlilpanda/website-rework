@@ -138,10 +138,10 @@ const posts = (await getCollection('blog')).sort(
 
  	@keyframes gradient {
         0% {
-            background-position: 0% 90%;
+            background-position: 0% 0%;
         }
 		100% {
-            background-position: 90% 0%;
+            background-position: 100% 0%;
         }
     }
 	
@@ -161,9 +161,14 @@ const posts = (await getCollection('blog')).sort(
 			#27ff88,
 			#27ffff,
 			#1e0ff5,
-			#9e27ff,
-			#ff0000 
+			#9e27ff
 		);
+		/* #1e0ff5,
+			#27ffff,
+			#27ff88,
+			#fcff4e, 
+			#ffbc7e, 
+			#ff0000 */
         background-size: 300% 300%;
 		-webkit-background-clip: text;
 		background-clip: text;
