@@ -11,105 +11,291 @@ export const prerender = true;
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// will work this out later
+const book_colours = []
+
+const max_shelf_width = 980;
+
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/articles/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
+				<ul class="shelfs", id="shelfs">
+					<div class="shelf", id="main-shelf">
+					{posts.map(book => (
+						// might change this to a compoent later
+						<a class="book-wrapper" href={`/articles/${book.id}/`}>
+							<li class="book">
+								<h1 class="book-title">
+									{book.data.title}
+								</h1>
 							</li>
-						))
-					}
+						</a>
+					))}					
+					</div>
 				</ul>
+				<div class="feet">
+					<div class="foot-right"></div>
+					<div class="foot-left"></div>
+				</div>
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+
+<!-- 
+{
+	shelfs.map(shelf => (
+		<ul class="shelf">
+			{shelf.map(book => (
+				// might change this to a compoent later
+				<a href={`/articles/${book.id}/`}>
+					<li class="book">
+						<h1 class="book-title">
+							{book.data.title}
+						</h1>
+					</li>
+				</a>
+			))}
+		</ul>
+	))
+} -->
+
+<script is:inline define:vars={{posts, max_shelf_width}}>
+
+	
+	const books = document.getElementsByClassName("book")
+	for (let book of books) {
+		book.style.background = '#' + Math.floor(Math.random()*16777215).toString(16); 
+	}
+
+	function resize_books() {
+
+		console.log(window.innerWidth * 0.75)
+		console.log("books")
+		
+		let current_bin_size = 0
+		
+		
+		const books = document.querySelectorAll(".book-wrapper")
+		const shelfs = document.getElementById("shelfs")
+		
+		let shelf = document.getElementById("main-shelf")
+		const shelf_style = window.getComputedStyle(shelf)
+		
+		console.log(`left pad ${shelf_style.paddingLeft}`)
+		
+		const shelf_bounding_box = shelf.getBoundingClientRect()
+		const width = shelf_bounding_box.width - parseInt(shelf_style.paddingLeft, 10) - parseInt(shelf_style.paddingRight, 10)
+		console.log(shelf.style)
+		console.log(`shelf bb ${width}`)
+		
+		console.log(max_shelf_width)
+		console.log(books)
+		
+		let i = 0;
+		for (let book of books) {
+			// console.log(book)
+			// console.log(i++)
+
+			const bounding_box = book.getBoundingClientRect()
+
+			if (current_bin_size + bounding_box.width > width) {
+				console.log(shelf)
+				current_bin_size = 0;
+				shelfs.appendChild(shelf)
+				shelf = document.createElement('div')
+				shelf.className = "shelf"
+			}
+
+			
+			current_bin_size += bounding_box.width;
+
+			shelf.appendChild(book)
+			console.log(`width ${bounding_box.width}`)
+			console.log(`total width ${current_bin_size}`)
+	
+		}
+		console.log(shelf)
+		shelfs.appendChild(shelf)
+
+		// remove all empty shelfs
+		for (let shelf of shelfs.children) {
+			if (shelf.className == "shelf") {
+				if (shelf.children.length == 0) {
+					console.log("removed")
+					shelf.remove()
+				}
+			}
+		}
+	}
+
+	resize_books()
+
+	addEventListener("resize", (event) => {
+		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+		if (!isMobile) {
+			resize_books()
+		}
+	})
+
+
+</script>
+
+
+<style is:inline>
+	a {
+		color: unset;
+		bottom: 0;
+	}
+
+	.shelf {
+		padding-left: 2em;
+		padding-right: 2em;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		border-radius: 2em;
+		border: solid;
+		background-color: rgb(105, 70, 24);
+		border-color: rgb(165, 110, 38);
+		border-width: 0.5em;
+		padding-top: 3em;
+		box-shadow: inset 10px 10px 10px 5px hsl(34, 63%, 20%), var(--box-shadow);
+	}
+
+	.shelfs:last-child {
+
+	}
+
+</style>
+
+<style>
+
+	a {
+		color: unset;
+		bottom: 0;
+	}
+
+	.shelf {
+		padding-left: 2em;
+		padding-right: 2em;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		background-color: rgb(105, 70, 24);
+		border-radius: 2em;
+		border: solid;
+		border-color: rgb(165, 110, 38);
+		border-width: 0.5em;
+		padding-top: 3em;
+		box-shadow: inset 0px 0px 10px 5px hsl(34, 63%, 20%), var(--box-shadow);
+		margin-bottom: unset;
+	}
+
+
+	main {
+		max-width: 960px;
+		background: unset;
+		border: unset;
+		padding-bottom: unset;
+	}
+
+
+	@media (max-width: 720px) {
+		main {
+			padding: unset;
+			max-width: 90vw;
+			background: unset;
+			border: unset;
+		}
+	}
+
+	.book {
+		max-width: fit-content;
+		padding-left: 0.1em;
+		max-height: 15em;
+		min-height: fit-content;
+		padding-top: 1em;
+		padding-bottom: 1em;
+		border-radius: 0.2em;
+		transition: 100ms;
+		box-shadow:  0 -2px 6px rgba(var(--black), 25%), 0 -8px 24px rgba(var(--black), 33%),
+		0 -16px 32px rgba(var(--black), 33%);
+	}
+
+	.book:hover {
+		transform: translateY(-1em);
+	}
+
+	.book-title {
+		display: inline-block;
+		writing-mode: sideways-lr;
+		font-size: 1em;
+	}
+
+	.shelfs {
+		padding-left: unset;
+		margin-bottom: unset;
+	}
+
+	.shelfs,
+	.shelf,
+	.book {
+		list-style: none;
+	}
+
+	.feet {
+		width: 100%;
+	}
+
+	.foot-left {
+		width: 2em;
+		height: 4em;
+		background: gray;
+		box-shadow: var(--box-shadow), inset 0px 2em 25px -0.4em #313131;
+		transform: translateX(2em);
+		border-bottom-left-radius: 0.5em;
+		border-bottom-right-radius: 0.5em;
+	}
+
+	.foot-right {
+		width: 2em;
+		height: 4em;
+		background: gray;
+		float: right;
+		box-shadow: var(--box-shadow), inset 0px 2em 25px -0.4em #313131;
+		transform: translateX(-2em);
+		border-bottom-left-radius: 0.5em;
+		border-bottom-right-radius: 0.5em;
+	}
+
+
+</style>
+
+
+<!-- 
+// posts.map((post) => (
+// 		<li>
+// 			<a href={`/articles/${post.id}/`}>
+// 				{post.data.heroImage && (
+// 					<Image width={720} height={360} src={post.data.heroImage} alt="" />
+// 				)}
+// 				<h4 class="title">{post.data.title}</h4>
+// 				<p class="date">
+// 					<FormattedDate date={post.data.pubDate} />
+// 				</p>
+// 			</a>
+// 		</li>
+// 	)) -->
