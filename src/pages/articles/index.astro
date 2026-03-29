@@ -43,7 +43,11 @@ const max_shelf_width = 980;
 					</div>
 				</ul>
 				<div class="feet">
+					<div class="shadow"></div>
+					<div class="wall-shadow"></div>
 					<div class="foot-right"></div>
+					<div class="foot-back-right"></div>
+					<div class="foot-back-left"></div>
 					<div class="foot-left"></div>
 				</div>
 			</section>
@@ -71,7 +75,7 @@ const max_shelf_width = 980;
 	))
 } -->
 
-<script is:inline define:vars={{posts, max_shelf_width}}>
+<script is:inline define:vars={{max_shelf_width}}>
 
 	
 	const books = document.getElementsByClassName("book")
@@ -210,6 +214,7 @@ const max_shelf_width = 980;
 		background: unset;
 		border: unset;
 		padding-bottom: unset;
+		transform: translateY(2em);
 	}
 
 
@@ -257,14 +262,31 @@ const max_shelf_width = 980;
 	}
 
 	.feet {
-		width: 100%;
 	}
+
+	.shadow {
+		position: absolute;
+		background-color: hsl(from var(--top-footer-colour) h s calc(l * 0.4));
+		width: calc(100% - 6em);
+		transform: translateY(2em) translateX(2em);
+		box-shadow: 0px 15px 10px 10px hsl(from var(--top-footer-colour) h s calc(l * 0.4));
+		height: 1.5em;
+	}
+
+	.wall-shadow {
+		position: absolute;
+		background-color: hsl(from var(--background-colour) h calc(s * 0.2) calc(l*0.2));
+		width: calc(100% - 8em);
+		transform: translateX(3em);
+		height: 2em;
+	}
+
 
 	.foot-left {
 		width: 2em;
 		height: 4em;
-		background: gray;
-		box-shadow: var(--box-shadow), inset 0px 2em 25px -0.4em #313131;
+		background: rgb(97, 97, 97);
+		box-shadow: inset 0px 20px 25px -0.4em #313131;
 		transform: translateX(2em);
 		border-bottom-left-radius: 0.5em;
 		border-bottom-right-radius: 0.5em;
@@ -273,10 +295,33 @@ const max_shelf_width = 980;
 	.foot-right {
 		width: 2em;
 		height: 4em;
-		background: gray;
+		background: rgb(97, 97, 97);
 		float: right;
-		box-shadow: var(--box-shadow), inset 0px 2em 25px -0.4em #313131;
+		box-shadow: inset 0px 2em 25px -0.4em #313131;
 		transform: translateX(-2em);
+		border-bottom-left-radius: 0.5em;
+		border-bottom-right-radius: 0.5em;
+	}
+
+
+	.foot-back-left {
+		position: absolute;
+		width: 1.2em;
+		height: 3em;
+		background: rgb(26, 26, 26);
+		box-shadow: inset 0px 2em 25px -0.4em #1f1f1f;
+		transform: translateX(7em);
+		border-bottom-left-radius: 0.5em;
+		border-bottom-right-radius: 0.5em;
+	}
+
+	.foot-back-right {
+		width: 1.2em;
+		height: 3em;
+		background: rgb(26, 26, 26);
+		float: right;
+		box-shadow: inset 0px 2em 25px -0.4em #1f1f1f;
+		transform: translateX(-5em);
 		border-bottom-left-radius: 0.5em;
 		border-bottom-right-radius: 0.5em;
 	}
