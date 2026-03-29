@@ -14,7 +14,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://website-rework.sirlilpanda.workers.dev',
+  site: 'https://sirlilpanda.studio',
   output: "server",
   markdown : {
     shikiConfig: {
@@ -24,7 +24,7 @@ export default defineConfig({
       },
     },
     remarkPlugins: [
-      // [remarkMath, {}],
+      [remarkMath, {}],
       [remarkToc, { heading: 'toc', maxDepth: 3 } ],
     ],
     rehypePlugins : [
