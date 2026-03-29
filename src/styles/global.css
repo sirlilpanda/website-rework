@@ -59,6 +59,7 @@
 		--sky-colour : linear-gradient(#3f67b5, #6baadf, #b5d1e8);
 		--frame-colour : #c2c2c2;
 		--main-background-colour : #fffeab;
+		--footer-colour : #f1c27c;
 }
 
 :root[data-theme="dark"] {
@@ -76,6 +77,7 @@
 		--sky-colour: linear-gradient(360deg,rgba(8, 0, 26, 1) 0%, rgba(7, 0, 20, 1) 37%, rgba(0, 0, 0, 1) 100%);
 		--frame-colour : #1a1a1e;
 		--main-background-colour : #3b3b3b;
+		--footer-colour : #535353;
 }
 
 
@@ -112,7 +114,8 @@ main {
 	z-index: 4;
 	width: 720px;
 	max-width: calc(100% - 2em);
-	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 3em 1em;
 	background-color: var(--main-background-colour);
 	border-radius: 2em;
