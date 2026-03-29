@@ -3,29 +3,26 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} sirlilpanda. All rights reserved.
+	<div class="top-floor">
+	</div>
+	<div class="sub-floor">
+		&copy; {today.getFullYear()} sirlilpanda. All rights reserved.
 	</div>
 </footer>
 <style>
-	footer {
+
+	.sub-floor {
 		padding: 5em 1em 2em 1em;
 		text-align: center;
 		height: 100%;
 		background: var(--footer-colour);
 		box-shadow: 0 50vh 0 50vh var(--footer-colour);
 	}
-	.social-links {
-		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
-	}
-
-	.social-links a {
-		text-decoration: none;
-		color: rgb(var(--gray));
-	}
-	.social-links a:hover {
-		color: rgb(var(--gray-dark));
+	
+	
+	.top-floor {
+		background: var(--top-footer-colour);
+		width: 100%;
+		height: 4em;
 	}
 </style>
