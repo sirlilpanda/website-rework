@@ -37,13 +37,6 @@ import HambugerIcon from './HamburgerIcon.astro'
 		</nav>
 	</div>
 </header>
-<ul>
-	<li>
-		<a href="https://onio.neocities.org" title="Visit Onio Café">
-			<img src="https://onio.neocities.org/thebutton.gif" alt="Come Chat With Us!" width="88" height="31">
-		</a>
-	</li>
-</ul>
 
 <script is:inline>
 	/* Hamburger button management */
@@ -69,13 +62,13 @@ import HambugerIcon from './HamburgerIcon.astro'
 		const header = document.getElementById("header-bar");
 		const window_frame = document.getElementById("window-frame-wrapper");
 		const header_bounding_box = header.getBoundingClientRect();
-		console.log(header_bounding_box)
+		// console.log(header_bounding_box)
 		const frame_bottom = document.getElementById("frame-bottom");
 		const frame_bottom_bounding_box = frame_bottom.getBoundingClientRect();;
 		const em = parseFloat(getComputedStyle(header).fontSize);
  
 		number_of_slats = Math.ceil(header_bounding_box.width / slat_spaceing);
-		console.log(`number of slats ${number_of_slats}`)
+		// console.log(`number of slats ${number_of_slats}`)
 
 		for (let i = 0; i < number_of_slats; i++) {
 			const slat = document.createElement('div');
@@ -108,7 +101,7 @@ import HambugerIcon from './HamburgerIcon.astro'
 		}
 	}
 
-	const number_of_stars = 300;
+	const number_of_stars = 90;
 	function fill_stars() {
 
 		// get the size of the header
@@ -218,6 +211,10 @@ import HambugerIcon from './HamburgerIcon.astro'
 		}
 	}
 
+	const number_of_clouds = 10;
+	const number_of_cloud_segments = 8;
+
+
 	function place_cloud(cloud, bound_box) {
 		cloud.className = "cloud"
 		
@@ -226,7 +223,7 @@ import HambugerIcon from './HamburgerIcon.astro'
 		cloud.style.position = "absolute";
 
 		// random circles around the top half of the cloud
-		const number_of_parts = Math.random() * 8 + 3;
+		const number_of_parts = Math.random() * number_of_cloud_segments + 3;
 		for (let i = 0; i < number_of_parts; i++) {
 			const fluff = document.createElement('div')
 			fluff.style.backgroundColor = "white"
@@ -304,7 +301,6 @@ import HambugerIcon from './HamburgerIcon.astro'
 		}
 	}
 
-	const number_of_clouds = 20;
 	function fill_sky() {
 		// get the size of the header
 		const header = document.getElementById("header-bar");
@@ -365,10 +361,13 @@ import HambugerIcon from './HamburgerIcon.astro'
 
 
 	addEventListener("resize", (event) => {
-		remove_slats()
-		position_window_frame()
+		var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-		replace_stars()
+		if (!isMobile) {
+			remove_slats()
+			position_window_frame()
+			replace_stars()
+		}
 	})
 
 	function update_clock() {
@@ -455,6 +454,7 @@ import HambugerIcon from './HamburgerIcon.astro'
 	header {
 		min-height: 10em;
 		width: 100vw;
+		margin-bottom: 2em;
 		/* background: linear-gradient(360deg,rgba(8, 0, 26, 1) 0%, rgba(7, 0, 20, 1) 37%, rgba(0, 0, 0, 1) 100%); */
 	}
 
