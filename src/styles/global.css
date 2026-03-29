@@ -60,6 +60,7 @@
 		--frame-colour : #c2c2c2;
 		--main-background-colour : #fffeab;
 		--footer-colour : #f1c27c;
+		--top-footer-colour : rgb(182, 139, 46);
 }
 
 :root[data-theme="dark"] {
@@ -78,6 +79,7 @@
 		--frame-colour : #1a1a1e;
 		--main-background-colour : #3b3b3b;
 		--footer-colour : #535353;
+		--top-footer-colour : #5c5c5c;
 }
 
 
