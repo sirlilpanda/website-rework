@@ -21,7 +21,10 @@ const today = new Date();
 	
 	
 	.top-floor {
-		background: var(--top-footer-colour);
+		background: linear-gradient(
+			hsl(from var(--top-footer-colour)  h s l),
+			var(--top-footer-colour)
+		);
 		width: 100%;
 		height: 4em;
 	}
