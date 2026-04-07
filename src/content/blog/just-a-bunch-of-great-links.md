@@ -60,6 +60,12 @@ heroImage: '../../assets/article_hero_images/books.png'
 - https://about.gitea.com/
 - https://git.zx2c4.com/cgit/about/
 
+# UI layout libs
+- https://github.com/Immediate-Mode-UI/Nuklear
+- https://github.com/nicbarker/clay
+- https://github.com/rxi/microui
+- https://github.com/ocornut/imgui
+
 # cool projects
 - https://www.hackster.io/news/boot-selector-switch-for-linux-or-windows-8f655f240743
 - https://keyboard-layout-editor.com/
