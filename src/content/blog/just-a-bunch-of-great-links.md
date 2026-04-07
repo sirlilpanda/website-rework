@@ -5,6 +5,9 @@ pubDate: 'Apr 07 2026'
 heroImage: '../../assets/article_hero_images/books.png'
 ---
 
+if you dont want your link to be here you can email `me@sirlilpanda.studio`.
+
+
 # cool websites
 - https://ratfactor.com/
 - https://n-o-d-e.net/
