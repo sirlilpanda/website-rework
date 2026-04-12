@@ -2,7 +2,7 @@
 title: 'my journey in to trying freeform electronics'
 description: 'freeform electronics is the act of soldering components together by either using the leads of the components themselves of solid wire'
 pubDate: 'Apr 12 2026'
-heroImage: '../../assets/article_hero_images/src/assets/article_hero_images/freefrom-soldering.png'
+heroImage: '../../assets/article_hero_images/freefrom-soldering.png'
 ---
 
 Recently I've been seeing a few bit of freeform electronics piece appear across my timeline.
