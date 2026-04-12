@@ -6,7 +6,7 @@ heroImage: '../../assets/article_hero_images/books.png'
 ---
 
 if you dont want your link to be here you can email `me@sirlilpanda.studio`.
-
+check this article often as i will be updating it
 
 # cool websites
 - https://ratfactor.com/
@@ -142,3 +142,12 @@ if you dont want your link to be here you can email `me@sirlilpanda.studio`.
 # books i want
 - https://www.amazon.com/Portraits-Above-Informal-Rooftop-Communities/dp/3980967778
 - https://modernistcuisine.com/
+- https://www.rizzoliusa.com/book/9788891843210/
+- https://www.amazon.com.au/dp/1849946817?ref_=mr_referred_us_au_nz
+- https://www.pantone.com/products/trend-books/the-complete-color-harmony-pantone-edition
+- https://clara.nz/docs/books/Machining/Machinery's%20Handbook,%2026th%20edition.pdf
+- https://project-cms-rpc-endcap.web.cern.ch/rpc/Physics/Books/BUILDING%20SCIENTIFIC%20APPARATUS,%20Fourth%20Edition.pdf
+- https://www.amazon.com/Signals-Subatomic-World-Precession-Magnetometer/dp/1887187006
+- https://www.amazon.com.au/dp/0070486174?ref_=mr_referred_us_au_nz
+- https://www.abebooks.com/9780520013636/Human-Engineering-Guide-Equipment-Designers-0520013638/plp
+- https://link.springer.com/book/10.1007/978-1-4419-1788-1
