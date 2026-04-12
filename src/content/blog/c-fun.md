@@ -478,6 +478,20 @@ void f(const char *str) {
 
 ```
 
+## string literals
+string literals dont have to be assigned to anything to be included this can be useful if you want version numbers directly in the program without exposing them to the user.
+notes that this will throw a warn and some compliers might remove it all togeather.
+
+```c
+
+void main() {
+    "hello world";
+}
+
+```
+
+
+
 
 ## extra reading and where i got these things from
 - Programming in Modern C with a Sneak Peek into C23 : https://www.youtube.com/watch?v=lLv1s7rKeCM
