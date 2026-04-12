@@ -1,0 +1,51 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+export const prerender = true;
+
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<h1>articles and projects i want to make/write there will be more added</h1>
+				<ul class="list", id="list">
+					<li>receipt printer fax machine</li>
+					<li>making the best all in one note book</li>
+					<li>fpga graphic card</li>
+					<li>writing design reports</li>
+					<li>building an eletronics lab</li>
+					<li>designs of a tiny houses</li>
+					<li>modern bullitin board: the implemention</li>
+					<li>write your own ui layout engine</li>
+					<li>desgining a dual rail power supply</li>
+					<li>making my perfect keyboard</li>
+					<li>programming an terimal ascii drawing tool</li>
+					<li>building a universal generator for powering microcontrollers</li>
+					<li>building the perfect part storage system</li>
+					<li>making pcbs at home</li>
+					<li>finding the best knowagle management tool</li>
+					<li>building my own markdown language</li>
+					<li>making a chat app for the rpg paranoia</li>
+					<li>opencad parametric 3d printer with auto generting bom</li>
+					<li>automatic pcb enclosure program</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+
+<style>
+
+</style>
