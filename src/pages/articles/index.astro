@@ -28,6 +28,23 @@ const max_shelf_width = 980;
 		<Header />
 		<main>
 			<section>
+				<div class="top-block">
+					<div class="header-poster">
+						<h2>Read some of my articles</h2>
+						<p>You can also check the list of articles and project i intend to write.</p>
+					</div>
+					<div class="todo-list">
+						<div class="pin"/>
+						<a href="/articles/todo">
+							<h5>TODO LIST:</h5>
+							<p class="scrible">scrible</p>
+							<p class="scrible">scrible</p>
+							<p class="scrible">scrible</p>
+							<p class="scrible">scrible</p>
+						</a>
+					</div>
+
+				</div>
 				<ul class="shelfs", id="shelfs">
 					<div class="shelf", id="main-shelf">
 					{posts.map(book => (
@@ -184,10 +201,65 @@ const max_shelf_width = 980;
 
 <style>
 
+	.top-block {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.pin {
+		margin-bottom: 0.2em;
+		width: 0.5em;
+		height: 0.5em;
+		background-color: red;
+		border-radius: 100%;
+		margin-left: 50%;
+		box-shadow: 0.1em 0.1em 2px 0px rgba(0,0,0,1);
+		transition: 150ms;
+	}
+
+	.todo-list {
+		margin-right: 2em;
+		padding-top: 0.5em;
+		/* padding-left: 0.5em; */
+		/* padding-right: 0.5em; */
+		width: fit-content;
+		max-height: fit-content;
+		background: linear-gradient(180deg, #FFFEED, #fff7d7);
+		transform: rotateZ(2deg);
+		border-radius: 1em;
+		padding-bottom: 0.5em;
+		transition: 150ms;
+		
+		h5 {
+			padding-left: 0.2em;
+			padding-right: 0.2em;
+			white-space: nowrap;
+		}
+
+		p {
+			margin: unset;
+			padding: unset;
+			border-bottom: 0.1em red solid;
+			width: 100%;
+		}
+	}
+
+	.todo-list:hover {
+		transform: translateY(-0.5em);
+		box-shadow: 1px 15px 5px 0px rgba(0,0,0,0.14);
+
+
+		.pin {
+			box-shadow: 0em 0.1em 2px 0px rgba(0,0,0,1);
+		}
+	}
+	
 	a {
 		color: unset;
 	}
-
+	.header-poster {
+		margin-right: 2em;
+	}
 
 	a:visited .book-mark {
 		transition: 100ms;
@@ -287,9 +359,9 @@ const max_shelf_width = 980;
 		position: absolute;
 		background-color: hsl(from var(--top-footer-colour) h s calc(l * 0.4));
 		width: calc(100% - 6em);
-		transform: translateY(1.1em) translateX(2em);
+		transform: translateY(1.8em) translateX(2em);
 		box-shadow: 0px 15px 10px 10px hsl(from var(--top-footer-colour) h s calc(l * 0.4));
-		height: 1.5em;
+		height: 0.8em;
 	}
 
 	.wall-shadow {
@@ -382,7 +454,9 @@ const max_shelf_width = 980;
 			border-bottom-left-radius: 0.5em;
 			border-bottom-right-radius: unset;
 		}
-
+		.header-poster h2 {
+			font-size: 2em;
+		}
 	}
 
 </style>
