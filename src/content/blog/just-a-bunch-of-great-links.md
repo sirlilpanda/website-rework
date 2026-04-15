@@ -80,6 +80,7 @@ check this article often as i will be updating it
 # academics
 - https://www.jpl.nasa.gov/site/research/media/posters/2022/R22229p.pdf
 - https://www2.eecs.berkeley.edu/Pubs/TechRpts/1965/ERL-m-132.pdf
+- https://arxiv.org/html/2603.21852v2
 
 # RF
 - http://www.n5dux.com/ham/kite/
