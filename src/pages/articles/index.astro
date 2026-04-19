@@ -13,9 +13,33 @@ const posts = (await getCollection('blog')).sort(
 );
 
 // will work this out later
-const book_colours = []
+const book_colours = [
+	"#fc5050", // red
+	"#fcb250", // orange
+	"#fcf179", // yellow
+	"#ccfc79", // green
+	"#86fc79", // green
+	"#79fca9", // aqua
+	"#7bfce9", // light blue
+	"#7baffc", // darker blue
+	"#977bfc", // purple
+	"#d798f9", // magenta
+	"#f998e9" // pink
+]
 
 const max_shelf_width = 980;
+
+
+
+function hash(str) {
+	let hash_value = 5;
+
+	for (let i = 0; i < str.length; i++) {
+		const char_val = str.charCodeAt(i);
+		hash_value += (hash_value << 2) - hash_value + char_val;
+	}
+	return Math.abs(hash_value);
+}
 
 ---
 
@@ -51,7 +75,7 @@ const max_shelf_width = 980;
 						// might change this to a compoent later
 						<a class="book-wrapper" href={`/articles/${book.id}/`}>
 							<div class="book-mark" />
-							<li class="book">
+							<li class="book" style={`background-color: ${book_colours[hash(book.data.title) % book_colours.length]};`}>
 								<h1 class="book-title">
 									{book.data.title}
 								</h1>
@@ -95,11 +119,10 @@ const max_shelf_width = 980;
 
 <script is:inline define:vars={{max_shelf_width}}>
 
+
+
+
 	
-	const books = document.getElementsByClassName("book")
-	for (let book of books) {
-		book.style.background = '#' + Math.floor(Math.random()*16777215).toString(16); 
-	}
 
 	function resize_books() {
 
@@ -234,6 +257,7 @@ const max_shelf_width = 980;
 			padding-left: 0.2em;
 			padding-right: 0.2em;
 			white-space: nowrap;
+			color : black;
 		}
 
 		p {
@@ -241,6 +265,7 @@ const max_shelf_width = 980;
 			padding: unset;
 			border-bottom: 0.1em red solid;
 			width: 100%;
+			color : black;
 		}
 	}
 
@@ -339,6 +364,7 @@ const max_shelf_width = 980;
 		display: inline-block;
 		writing-mode: sideways-lr;
 		font-size: 1em;
+		color: #1f1f1f;
 	}
 
 	.shelfs {
