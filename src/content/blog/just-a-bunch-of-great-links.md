@@ -152,3 +152,7 @@ check this article often as i will be updating it
 - https://www.amazon.com.au/dp/0070486174?ref_=mr_referred_us_au_nz
 - https://www.abebooks.com/9780520013636/Human-Engineering-Guide-Equipment-Designers-0520013638/plp
 - https://link.springer.com/book/10.1007/978-1-4419-1788-1
+
+# useful documents
+- https://scidyne.com/ftp/ref_info/atx_201.pdf
+
