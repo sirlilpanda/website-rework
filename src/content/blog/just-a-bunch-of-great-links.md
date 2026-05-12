@@ -56,6 +56,7 @@ check this article often as i will be updating it
 - using uart as a bus : https://www.uartbus.eu/
 - https://milkv.io/docs/duo/overview
 - https://multitude.net/wp-content/uploads/2022/07/BLESS_Book.pdf
+- just all of cerns opensource hardware : https://ohwr.org/ 
 
 # forges
 - https://sourcehut.org/
